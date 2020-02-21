@@ -16,4 +16,9 @@ ADD init /init
 #replace the squid config file
 ADD squid.conf /etc/squid/squid.conf
 
+# Convert any CRLF line endings to LF
+RUN sed -i 's/\r//' /init
+
+RUN chmod 777 /var/log/squid/ /init
+
 CMD ["/init"]
