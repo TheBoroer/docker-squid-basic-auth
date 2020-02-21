@@ -12,10 +12,10 @@ htpasswd -bc /etc/squid3/users "${SQUID_USERNAME}" "${SQUID_PASSWORD}"
 # For multiple logins, manually delete the file then cycle through the user/pass combos
 
 # Set Squid Port
-sed -i "s/http_port.*/http_port $SQUID_PORT/g" /etc/squid/squid.conf
+sed -i "s/http_port.*/http_port ${SQUID_PORT:-3128}/g" /etc/squid/squid.conf
 
 # Set Max Children
-sed -i "s/auth_param basic children.*/auth_param basic children $SQUID_MAX_CHILDREN/g" /etc/squid/squid.conf
+sed -i "s/auth_param basic children.*/auth_param basic children ${SQUID_MAX_CHILDREN:-5}/g" /etc/squid/squid.conf
 
 # Workaround: Squid sometimes has stale PID file issue when stop/restart on container happens
 # we need to delete the pid file before starting it again.

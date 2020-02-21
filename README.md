@@ -1,45 +1,22 @@
 squid-docker-simple-auth
 ========================
 
-A simple (and fragile) Dockerfile for launching an authenticated squid proxy.
+A docker image for launching a squid proxy container with basic authentication support.
 
-The user must specify authentication credentials via the following environment variables:
+Required Environment Variables:
+
+| Variable | Example Value | Required |
+|----------|---------------|----------|
+| SQUID_USERNAME | foo | * |
+| SQUID_PASSWORD | bar | * |
+| SQUID_PORT | 3128 |  |
+| SQUID_MAX_CHILDREN | 5 |  |
+
+
+Example of how to run:
 
 ```
-SQUID_USERNAME=foo
-SQUID_PASSWORD=bar
+docker run -e SQUID_USERNAME=foo -e SQUID_PASSWORD=bar -p 3128:3128 boro/squid-basic-auth
 ```
 
-An example invocation would be:
-
-```
-docker run -e SQUID_USERNAME=foo -e SQUID_PASSWORD=bar -p 3128:3128 robhaswell/squid-authenticated
-```
-
-With some added performance improvements and transparency settings.
-Latest version of Squid.
-
-Uses Alpine Linux.
-
-Details
-=======
-
-Environment variables
----------------------
-
-* SQUID_USERNAME
-* SQUID_PASSWORD
-
-Ports
------
-
-* 3128
-
-Volumes
--------
-
-* `/var/log/squid`
-
-Ideas for Improvement
-=====================
-* Output logs to stdout.
+Uses Ubuntu 16.04.
